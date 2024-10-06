@@ -1,15 +1,13 @@
 .logo {
     width: 100px;
     height: 100px;
-
+    margin-left: 50px;
 }
 body {
     font-family: 'Roboto', sans-serif;
     max-width: 1800px;
     margin: 0 auto;
-
 }
-
 .head {
     margin-top: 50px;
     font-size: 20px;
@@ -19,6 +17,9 @@ body {
     align-items: center;
     background-color: #f8f9fa;
 
+}
+.navbar {
+    margin-right: 50px;
 }
 .navbar li {
     display: inline;
