@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+       .box {
+               background-color: red;
+               border: maroon 2px solid;
+               color: white;
+               font-size: 20px;
+               width: 100px;
+               height: 100px;
+               padding: 20px 20px 20px 20px;
+         }
+
+       #container {
+           display: flex;
+           margin-top: 35px;
+           background-color: darkblue;
+           justify-content: space-around;
+           flex-wrap: wrap;
+
+
+       }
+
+       header {
+           max-width: 1200px;
+            margin: 0 auto;
+       }
+
+
+       /* Add some style to the navbar */
+       .navbar {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           padding: 20px;
+           background-color: #f8f9fa;
+           border-bottom: 2px solid #ccc;
+       }
+
+       .navbar ul {
+           list-style-type: none;
+           display: flex;
+           gap: 25px;
+           margin: 0;
+           padding: 0;
+       }
+
+
+       .navbar ul li {
+           margin: 0;
+       }
+
+
+       .navbar ul li a {
+           text-decoration: none;
+           color: darkblue;
+           font-weight: bolder;
+           font-size: 18px;
+       }
+
+       /* Add hover effect for links */
+       .navbar ul li a:hover {
+           color: darkmagenta;
+       }
+
+    </style>
+
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <a href="index.html">
+            <img src="assets/images/logo.png" alt="my logo" style="width: 125px">
+        </a>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="about.html">Departments</a></li>
+            <li><a href="about.html">Gallery</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+
+<div id="container">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+    <div class="box">6</div>
+    <div class="box">7</div>
+    <div class="box">8</div>
+</div>
+
+
+</body>
+</html>
+
+
