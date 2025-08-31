@@ -6,7 +6,11 @@
     <title>Noble Institute Job Mediation Platform</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <script>
-        mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'forest',
+            securityLevel: 'loose' // Allows more diagram flexibility
+        });
     </script>
     <style>
         * {
@@ -161,6 +165,11 @@
                 font-size: 1.1rem;
             }
         }
+        
+        /* Mermaid diagram styling */
+        .mermaid {
+            overflow: auto;
+        }
     </style>
 </head>
 <body>
@@ -174,70 +183,81 @@
             <div class="diagram-container">
                 <div class="mermaid">
                     flowchart TD
+                    %% Define actors with different shapes
+                    Student((Graduated Student))
+                    Admin((Admin))
+                    Employer((Employer))
+
+                    %% Define use cases as rounded rectangles
+                    UC_Register([Register as Graduate])
+                    UC_Verify([Verify Graduate])
+                    UC_CV([Create / Edit CV])
+                    UC_CV_Versions([Manage CV Versions])
+                    UC_SearchJobs([Search & Filter Jobs])
+                    UC_Apply([Apply to Job])
+                    UC_Track([Track Application Status])
+                    UC_Feedback([Provide Feedback])
+                    UC_ManageJobs([Manage Job Postings])
+                    UC_ManageApps([Manage Applications])
+                    UC_Analytics([Analyze Employment Data])
+                    UC_Workshops([Assign Workshops/Training])
+                    UC_Notify([Notify via Email/SMS])
+                    UC_Network([Alumni–Employer Networking])
+
+                    %% Group platform area with a dotted rectangle
                     subgraph Platform [Noble Institute Platform]
                         direction TB
-                        subgraph GraduateManagement [Graduate Management]
-                            UC_Register(Register as Graduate)
-                            UC_Verify(Verify Graduate)
-                            UC_CV(Create / Edit CV)
-                            UC_CV_Versions(Manage CV Versions)
-                        end
-
-                        subgraph JobSearch [Job Search & Application]
-                            UC_SearchJobs(Search & Filter Jobs)
-                            UC_Apply(Apply to Job)
-                            UC_Track(Track Application Status)
-                        end
-
-                        subgraph Administration [Administration & Analytics]
-                            UC_ManageJobs(Manage Job Postings)
-                            UC_ManageApps(Manage Applications)
-                            UC_Analytics(Analyze Employment Data)
-                            UC_Workshops(Assign Workshops/Training)
-                            UC_Notify(Notify via Email/SMS)
-                        end
-
-                        subgraph Networking [Networking]
-                            UC_Network(Alumni–Employer Networking)
-                        end
-
-                        UC_Feedback(Provide Feedback)
+                        UC_Register
+                        UC_Verify
+                        UC_CV
+                        UC_CV_Versions
+                        UC_SearchJobs
+                        UC_Apply
+                        UC_Track
+                        UC_Feedback
+                        UC_ManageJobs
+                        UC_ManageApps
+                        UC_Analytics
+                        UC_Workshops
+                        UC_Notify
+                        UC_Network
                     end
 
-                    %% Actors
-                    Student[Graduated Student]:::student
-                    Admin[Admin (Institute Staff)]:::admin
-                    Employer[Employer (External)]:::employer
+                    %% Draw connections between actors and use cases
+                    Student --- UC_Register
+                    Student --- UC_CV
+                    Student --- UC_CV_Versions
+                    Student --- UC_SearchJobs
+                    Student --- UC_Apply
+                    Student --- UC_Track
 
-                    %% Relationships
-                    UC_Apply -.->|<<include>>| UC_CV_Versions
-                    UC_Track -.->|<<extend>>| UC_Notify
-                    UC_ManageApps -.->|<<include>>| UC_Feedback
-                    UC_Analytics -.->|<<include>>| UC_ManageApps
-                    UC_Workshops -.->|<<include>>| UC_Track
+                    Admin --- UC_Verify
+                    Admin --- UC_ManageJobs
+                    Admin --- UC_ManageApps
+                    Admin --- UC_Analytics
+                    Admin --- UC_Workshops
+                    Admin --- UC_Notify
+                    Admin --- UC_Network
 
-                    %% Actor connections
-                    Student --> UC_Register
-                    Student --> UC_CV
-                    Student --> UC_CV_Versions
-                    Student --> UC_SearchJobs
-                    Student --> UC_Apply
-                    Student --> UC_Track
+                    Employer --- UC_ManageJobs
+                    Employer --- UC_Feedback
 
-                    Admin --> UC_Verify
-                    Admin --> UC_ManageJobs
-                    Admin --> UC_ManageApps
-                    Admin --> UC_Analytics
-                    Admin --> UC_Workshops
-                    Admin --> UC_Notify
-                    Admin --> UC_Network
+                    %% Draw relationships between use cases
+                    UC_Apply -.->|includes| UC_CV_Versions
+                    UC_Track -.->|extends| UC_Notify
+                    UC_ManageApps -.->|includes| UC_Feedback
+                    UC_Analytics -.->|includes| UC_ManageApps
+                    UC_Workshops -.->|includes| UC_Track
 
-                    Employer --> UC_ManageJobs
-                    Employer --> UC_Feedback
+                    %% Styling for elements
+                    class Student,Admin,Employer actorClass;
+                    class UC_Register,UC_Verify,UC_CV,UC_CV_Versions,UC_SearchJobs,UC_Apply,UC_Track,UC_Feedback,UC_ManageJobs,UC_ManageApps,UC_Analytics,UC_Workshops,UC_Notify,UC_Network useCaseClass;
+                    class Platform platformClass;
 
-                    classDef student fill:#9fe2bf,stroke:#333,stroke-width:1px
-                    classDef admin fill:#6495ed,stroke:#333,stroke-width:1px,color:white
-                    classDef employer fill:#ff7f50,stroke:#333,stroke-width:1px
+                    %% Define styles
+                    classDef actorClass fill:#9fe2bf,stroke:#333,stroke-width:2px,rx:20px,ry:20px;
+                    classDef useCaseClass fill:#6495ed,stroke:#333,stroke-width:1px,color:white,rx:10px,ry:10px;
+                    classDef platformClass fill:none,stroke:#ccc,stroke-width:2px,stroke-dasharray: 5 5;
                 </div>
             </div>
             
