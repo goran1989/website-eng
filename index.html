@@ -1,327 +1,219 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noble Institute Job Mediation Platform</title>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({ 
-            startOnLoad: true, 
-            theme: 'forest',
-            securityLevel: 'loose' // Allows more diagram flexibility
-        });
-    </script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            padding: 30px 0;
-            margin-bottom: 30px;
-        }
-        
-        h1 {
-            color: #2c3e50;
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-        
-        .subtitle {
-            color: #7f8c8d;
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .diagram-container {
-            flex: 1;
-            min-width: 300px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 25px;
-            overflow-x: auto;
-        }
-        
-        .description {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        h2 {
-            color: #3498db;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-bottom: 2px solid #eaecef;
-            padding-bottom: 10px;
-        }
-        
-        h3 {
-            color: #2c3e50;
-            margin: 25px 0 15px 0;
-            font-size: 1.4rem;
-        }
-        
-        p {
-            margin-bottom: 15px;
-            color: #555;
-            line-height: 1.7;
-        }
-        
-        .actors {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .actor-card {
-            flex: 1;
-            min-width: 250px;
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .actor-card h4 {
-            color: #3498db;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        
-        .features {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            margin-top: 20px;
-        }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .feature-item {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #3498db;
-        }
-        
-        .feature-item h4 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 768px) {
-            .content {
-                flex-direction: column;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-        }
-        
-        /* Mermaid diagram styling */
-        .mermaid {
-            overflow: auto;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Noble Institute Job Mediation Platform</h1>
-            <p class="subtitle">A comprehensive system connecting graduates with employers through verified profiles, job matching, and career development tools.</p>
-        </header>
-        
-        <div class="content">
-            <div class="diagram-container">
-                <div class="mermaid">
-                    flowchart TD
-                    %% Define actors with different shapes
-                    Student((Graduated Student))
-                    Admin((Admin))
-                    Employer((Employer))
+export default function PortfolioSite(){
+  const achievements = [
+    {
+      k: 1,
+      title: "Complete Content Management System",
+      desc: "Architected and built a modular CMS from scratch tailored to Noble Institute's workflows.",
+      tag: "Full‑stack",
+      gradient: "from-blue-500 to-indigo-600",
+    },
+    {
+      k: 2,
+      title: "Quality Assurance Management System",
+      desc: "End‑to‑end QA lifecycle for academic staff: forms, reviews, KPIs, dashboards.",
+      tag: "QA Platform",
+      gradient: "from-emerald-500 to-teal-600",
+    },
+    {
+      k: 3,
+      title: "Noble Score App",
+      desc: "Mobile‑first app for students to track scores, attendance, and notifications.",
+      tag: "Mobile/Web App",
+      gradient: "from-fuchsia-500 to-purple-600",
+    },
+    {
+      k: 4,
+      title: "Smart Wristbands Integration",
+      desc: "Programmed NFC/ID wristbands for marks, attendance, points, and rewards.",
+      tag: "IoT • NFC",
+      gradient: "from-rose-500 to-orange-500",
+    },
+    {
+      k: 5,
+      title: "Attendance Innovation",
+      desc: "Re‑designed attendance system with reliability, analytics, and anti‑fraud checks.",
+      tag: "System Redesign",
+      gradient: "from-cyan-500 to-sky-600",
+    },
+    {
+      k: 6,
+      title: "Marketing Management System",
+      desc: "Lead management, campaign tracking, funnels, and automated follow‑ups.",
+      tag: "Growth Ops",
+      gradient: "from-amber-500 to-yellow-600",
+    },
+    {
+      k: 7,
+      title: "Excel Statistics Reports (10+)",
+      desc: "Automated multi‑sheet reports for admissions, attendance, and performance.",
+      tag: "Analytics",
+      gradient: "from-lime-500 to-green-600",
+    },
+    {
+      k: 8,
+      title: "Google Workspace for Education Deal",
+      desc: "Negotiated a free contract valued at $5,000+ and led full rollout.",
+      tag: "Cost Savings",
+      gradient: "from-sky-500 to-blue-600",
+    },
+    {
+      k: 9,
+      title: "Batch Scripts & Security Tooling",
+      desc: "Dozens of automated scripts, backups, hardening, and monitoring tools.",
+      tag: "DevOps • SecOps",
+      gradient: "from-slate-600 to-zinc-800",
+    },
+    {
+      k: 10,
+      title: "Student Registration System",
+      desc: "Complete registration pipeline: forms, verification, payments, and onboarding.",
+      tag: "Admissions",
+      gradient: "from-violet-500 to-indigo-600",
+    },
+    {
+      k: 11,
+      title: "Automated SMS & WhatsApp",
+      desc: "One‑click messaging flows to guide students through easy registration.",
+      tag: "Automation",
+      gradient: "from-rose-600 to-pink-600",
+    },
+  ];
 
-                    %% Define use cases as rounded rectangles
-                    UC_Register([Register as Graduate])
-                    UC_Verify([Verify Graduate])
-                    UC_CV([Create / Edit CV])
-                    UC_CV_Versions([Manage CV Versions])
-                    UC_SearchJobs([Search & Filter Jobs])
-                    UC_Apply([Apply to Job])
-                    UC_Track([Track Application Status])
-                    UC_Feedback([Provide Feedback])
-                    UC_ManageJobs([Manage Job Postings])
-                    UC_ManageApps([Manage Applications])
-                    UC_Analytics([Analyze Employment Data])
-                    UC_Workshops([Assign Workshops/Training])
-                    UC_Notify([Notify via Email/SMS])
-                    UC_Network([Alumni–Employer Networking])
+  const stat = [
+    {label: "Systems Delivered", value: "11+"},
+    {label: "Students Served", value: "5k+"},
+    {label: "Automations", value: "30+"},
+    {label: "Savings", value: "$5k+"},
+  ];
 
-                    %% Group platform area with a dotted rectangle
-                    subgraph Platform [Noble Institute Platform]
-                        direction TB
-                        UC_Register
-                        UC_Verify
-                        UC_CV
-                        UC_CV_Versions
-                        UC_SearchJobs
-                        UC_Apply
-                        UC_Track
-                        UC_Feedback
-                        UC_ManageJobs
-                        UC_ManageApps
-                        UC_Analytics
-                        UC_Workshops
-                        UC_Notify
-                        UC_Network
-                    end
+  const Icon = ({className="w-5 h-5"}) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
+      <path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-5 5V7z"/>
+    </svg>
+  );
 
-                    %% Draw connections between actors and use cases
-                    Student --- UC_Register
-                    Student --- UC_CV
-                    Student --- UC_CV_Versions
-                    Student --- UC_SearchJobs
-                    Student --- UC_Apply
-                    Student --- UC_Track
+  const Badge = ({children}) => (
+    <span className="inline-flex items-center gap-1 rounded-full bg-white/20 text-white px-2.5 py-1 text-xs">
+      <Icon className="w-3.5 h-3.5" /> {children}
+    </span>
+  );
 
-                    Admin --- UC_Verify
-                    Admin --- UC_ManageJobs
-                    Admin --- UC_ManageApps
-                    Admin --- UC_Analytics
-                    Admin --- UC_Workshops
-                    Admin --- UC_Notify
-                    Admin --- UC_Network
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-800">
+      {/* Nav */}
+      <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200">
+        <nav className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600" />
+            <span className="font-semibold">Goran HamaAli</span>
+            <span className="hidden sm:inline text-slate-500">— Developer @ Noble Institute</span>
+          </div>
+          <div className="hidden md:flex items-center gap-6 text-sm">
+            <a href="#work" className="hover:text-blue-600">Work</a>
+            <a href="#impact" className="hover:text-blue-600">Impact</a>
+            <a href="#contact" className="hover:text-blue-600">Contact</a>
+          </div>
+        </nav>
+      </header>
 
-                    Employer --- UC_ManageJobs
-                    Employer --- UC_Feedback
-
-                    %% Draw relationships between use cases
-                    UC_Apply -.->|includes| UC_CV_Versions
-                    UC_Track -.->|extends| UC_Notify
-                    UC_ManageApps -.->|includes| UC_Feedback
-                    UC_Analytics -.->|includes| UC_ManageApps
-                    UC_Workshops -.->|includes| UC_Track
-
-                    %% Styling for elements
-                    class Student,Admin,Employer actorClass;
-                    class UC_Register,UC_Verify,UC_CV,UC_CV_Versions,UC_SearchJobs,UC_Apply,UC_Track,UC_Feedback,UC_ManageJobs,UC_ManageApps,UC_Analytics,UC_Workshops,UC_Notify,UC_Network useCaseClass;
-                    class Platform platformClass;
-
-                    %% Define styles
-                    classDef actorClass fill:#9fe2bf,stroke:#333,stroke-width:2px,rx:20px,ry:20px;
-                    classDef useCaseClass fill:#6495ed,stroke:#333,stroke-width:1px,color:white,rx:10px,ry:10px;
-                    classDef platformClass fill:none,stroke:#ccc,stroke-width:2px,stroke-dasharray: 5 5;
-                </div>
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.15),rgba(255,255,255,0))]"/>
+        <div className="max-w-6xl mx-auto px-4 py-14 md:py-20 grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
+              Building systems that power <span className="text-blue-600">Noble Institute</span>
+            </h1>
+            <p className="mt-4 text-slate-600 text-lg">
+              Head of Noble IT Unit · MSc Computer Engineering · PhD (candidate) in Software Engineering.
+              I design, build, and automate the platforms our students and staff use every day.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="#work" className="px-5 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700 shadow">See my work</a>
+              <a href="#contact" className="px-5 py-3 rounded-xl border border-slate-300 hover:bg-slate-50">Contact</a>
             </div>
-            
-            <div class="description">
-                <h2>Platform Overview</h2>
-                <p>The Noble Institute Job Mediation Platform is designed to bridge the gap between graduated students and potential employers. It provides a structured environment for career development, job searching, and professional networking.</p>
-                
-                <div class="actors">
-                    <div class="actor-card">
-                        <h4>Graduated Student</h4>
-                        <p>Alumni of Noble Institute who use the platform to find employment, manage their professional profile, and connect with employers.</p>
-                    </div>
-                    <div class="actor-card">
-                        <h4>Admin (Institute Staff)</h4>
-                        <p>Institute personnel who manage the platform, verify graduates, curate job postings, and facilitate connections.</p>
-                    </div>
-                    <div class="actor-card">
-                        <h4>Employer (External)</h4>
-                        <p>Organizations seeking talent, who post job opportunities and interact with graduated students through the platform.</p>
-                    </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {achievements.slice(0,4).map((a)=> (
+              <div key={a.k} className={`rounded-2xl p-4 text-white shadow-lg bg-gradient-to-br ${a.gradient}`}>
+                <div className="flex items-center justify-between">
+                  <Badge>{a.tag}</Badge>
                 </div>
-                
-                <h3>Key Functionalities</h3>
-                <p>The platform offers comprehensive features for each user type, including graduate verification, CV management, job search tools, application tracking, and networking opportunities.</p>
-                
-                <h3>Relationships & Dependencies</h3>
-                <p>The use cases demonstrate include and extend relationships that show how functionalities depend on each other. For example, applying to a job requires managing CV versions, and tracking applications can trigger notifications.</p>
-            </div>
+                <div className="mt-3 text-sm font-semibold leading-snug">{a.title}</div>
+              </div>
+            ))}
+          </div>
         </div>
-        
-        <div class="features">
-            <h2>Platform Features</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <h4>Graduate Verification</h4>
-                    <p>Admin verification ensures only legitimate Noble Institute graduates can access the platform.</p>
-                </div>
-                <div class="feature-item">
-                    <h4>CV Management</h4>
-                    <p>Create, edit, and maintain multiple versions of your CV for different job applications.</p>
-                </div>
-                <div class="feature-item">
-                    <h4>Smart Job Matching</h4>
-                    <p>Advanced search and filtering tools to find the most relevant job opportunities.</p>
-                </div>
-                <div class="feature-item">
-                    <h4>Application Tracking</h4>
-                    <p>Monitor the status of all your job applications in one convenient dashboard.</p>
-                </div>
-                <div class="feature-item">
-                    <h4>Employer Feedback</h4>
-                    <p>Receive constructive feedback from employers to improve your future applications.</p>
-                </div>
-                <div class="feature-item">
-                    <h4>Networking Events</h4>
-                    <p>Participate in exclusive networking events connecting alumni with potential employers.</p>
-                </div>
-            </div>
+      </section>
+
+      {/* Stats */}
+      <section id="impact" className="py-6">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {stat.map((s)=> (
+              <div key={s.label} className="rounded-2xl border border-slate-200 p-5 bg-white text-center shadow-sm">
+                <div className="text-3xl font-extrabold text-slate-900">{s.value}</div>
+                <div className="text-slate-500 text-sm mt-1">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
+
+      {/* Work */}
+      <section id="work" className="py-10 md:py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold">Key systems & contributions</h2>
+          <p className="text-slate-600 mt-2">A snapshot of the platforms and automations I delivered for Noble.</p>
+
+          <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {achievements.map((a)=> (
+              <article key={a.k} className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition">
+                <div className={`h-28 rounded-t-2xl bg-gradient-to-br ${a.gradient}`} />
+                <div className="p-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="font-semibold leading-snug">{a.title}</h3>
+                    <Badge>{a.tag}</Badge>
+                  </div>
+                  <p className="mt-2 text-sm text-slate-600">{a.desc}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About blurb */}
+      <section className="py-8">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+            <h3 className="text-xl font-bold">How I work</h3>
+            <ul className="mt-3 grid sm:grid-cols-2 gap-3 text-slate-700 text-sm">
+              <li>• Requirements → architecture → fast prototypes → production.</li>
+              <li>• Secure by default: backups, monitoring, hardening, audits.</li>
+              <li>• Automation first: reduce manual steps, shorten response time.</li>
+              <li>• Data‑driven: reporting and dashboards for every system.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="py-12 md:py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50 to-indigo-50 p-6 md:p-10">
+            <h2 className="text-2xl md:text-3xl font-bold">Let’s collaborate</h2>
+            <p className="mt-2 text-slate-700">Available for consulting, integrations, and system upgrades at Noble or partner institutes.</p>
+            <div className="mt-6 grid sm:grid-cols-3 gap-4 text-sm">
+              <a className="rounded-xl bg-blue-600 text-white px-5 py-3 text-center hover:bg-blue-700" href="mailto:goran.wnis@gmail.com">goran.wnis@gmail.com</a>
+              <a className="rounded-xl border border-blue-200 px-5 py-3 text-center hover:bg-white" href="tel:+9647504623264">+964 750 462 3264</a>
+              <a className="rounded-xl border border-blue-200 px-5 py-3 text-center hover:bg-white" href="https://noble.edu.krd" target="_blank">noble.edu.krd</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="py-6 border-t border-slate-200 text-center text-sm text-slate-500">© {new Date().getFullYear()} Goran HamaAli — Noble Institute</footer>
     </div>
-    
-    <footer>
-        <p>Noble Institute Job Mediation Platform | Use Case Diagram</p>
-        <p>© 2023 Noble Institute. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+  );
+}
