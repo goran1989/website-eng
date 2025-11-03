@@ -1,361 +1,668 @@
-<!doctype html>
-<html lang="en" data-theme="light">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Goran HamaAli · Noble Institute Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    :root{
-      --bg: #f8f9fb;           /* light background */
-      --ink: #0f172a;          /* light text */
-      --muted: #64748b;
-      --card-bg: #ffffff;
-      --card-border: #e5e7eb;
-      --section-soft: #f3f4f6;
-      --gold: #D4AF37;         /* brand gold */
-      --gold-2: #b88a1e;       /* deeper gold */
-      --bronze: #B87333;       /* brand bronze */
-      --bronze-2: #8f4c1e;     /* deeper bronze */
-    }
-    html[data-theme="dark"]{
-      --bg: #0b0e14;
-      --ink: #e5e7eb;
-      --muted: #94a3b8;
-      --card-bg: #0f131a;
-      --card-border: #1f2937;
-      --section-soft: #0f131a;
-    }
-    body{ background: var(--bg); color: var(--ink); }
-    .text-muted{ color: var(--muted) !important; }
-    .card{ background: var(--card-bg); border-color: var(--card-border); }
-    .section-soft{ background: var(--section-soft); }
-    .bg-gold-grad{ background: linear-gradient(135deg, var(--gold), var(--gold-2)); color:#fff; }
-    .bg-bronze-grad{ background: linear-gradient(135deg, var(--bronze), var(--bronze-2)); color:#fff; }
-    .badge-gold{ background: linear-gradient(135deg, var(--gold), var(--gold-2)); color:#fff; }
-    .badge-bronze{ background: linear-gradient(135deg, var(--bronze), var(--bronze-2)); color:#fff; }
-    .btn-gold{ background: linear-gradient(135deg, var(--gold), var(--gold-2)); color:#fff; border:0; }
-    .btn-bronze{ background: linear-gradient(135deg, var(--bronze), var(--bronze-2)); color:#fff; border:0; }
-    .btn-gold:hover, .btn-bronze:hover{ opacity:.95; color:#fff; }
-    .hero-accent{ color: var(--gold); }
-    .shadow-soft{ box-shadow: 0 10px 25px rgba(0,0,0,.06); }
-    .card-header-gradient{ height: 112px; border-top-left-radius: .75rem; border-top-right-radius: .75rem; }
-    .link-underline:hover{ text-decoration: underline; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resistor Color Code Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .icon-chip {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .mode-toggle {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .mode-btn {
+            padding: 15px 30px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .mode-content {
+            display: none;
+        }
+
+        .mode-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .resistor-visual {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .resistor-body {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 80px;
+            background: linear-gradient(to bottom, #d4a574 0%, #c9914d 50%, #d4a574 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .resistor-body::before,
+        .resistor-body::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #888;
+        }
+
+        .resistor-body::before {
+            left: -60px;
+        }
+
+        .resistor-body::after {
+            right: -60px;
+        }
+
+        .color-bands {
+            display: flex;
+            gap: 20px;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .band {
+            width: 30px;
+            height: 90%;
+            border-radius: 3px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .band:hover {
+            transform: scale(1.05);
+        }
+
+        .color-selectors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .selector-group {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .selector-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .color-option {
+            padding: 12px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .color-option:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .color-option.selected {
+            border-color: #333;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 30px;
+            animation: pulse 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .result-value {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .result-label {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .value-input-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        input[type="number"] {
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 1.2em;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .unit-select {
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 1.1em;
+            cursor: pointer;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .unit-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .calculate-btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .info-box {
+            background: #e8f4fd;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .info-box h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .mode-toggle {
+                flex-direction: column;
+            }
+
+            .resistor-visual {
+                padding: 20px;
+            }
+
+            .resistor-body {
+                height: 60px;
+            }
+
+            .color-selectors {
+                grid-template-columns: 1fr;
+            }
+
+            .result-value {
+                font-size: 2em;
+            }
+
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            input[type="number"],
+            .unit-select {
+                width: 100%;
+            }
+        }
+
+        .tolerance-note {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg border-bottom" style="border-color: var(--card-border); background: rgba(255,255,255,.6); backdrop-filter: blur(6px);">
-    <div class="container py-2">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-        <span class="d-inline-block rounded-3" style="width:32px;height:32px;background:linear-gradient(135deg,var(--gold),var(--gold-2));"></span>
-        <strong>Goran HamaAli</strong>
-        <span class="ms-1 text-muted d-none d-md-inline">— Developer @ Noble Institute</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="nav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="#work">Work</a></li>
-          <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-        </ul>
-        <button id="themeBtn" class="btn btn-sm btn-outline-secondary ms-lg-3" type="button">Dark</button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <header class="py-5 py-lg-6">
     <div class="container">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-7">
-          <h1 class="display-5 fw-bold lh-tight">Building systems that power <span class="hero-accent">Noble Institute</span></h1>
-          <p class="mt-3 lead text-muted">Head of Noble IT Unit · BSc Electrical Engineering · MSc Computer Engineering · PhD (candidate) in Software Engineering. I design, build, and automate the platforms our students and staff use every day.</p>
-          <div class="mt-3 d-flex gap-2 flex-wrap">
-            <a href="#work" class="btn btn-gold px-4">See my work</a>
-            <a href="#contact" class="btn btn-outline-secondary px-4" style="border-color: var(--card-border);">Contact</a>
-          </div>
+        <div class="header">
+            <h1>
+                <div class="icon-chip">⚡</div>
+                Resistor Color Calculator <br>
+               Algorithm and Problem Solving / Class (2025-2026)
+            </h1>
+            <p class="subtitle">Decode resistor values or find color codes</p>
         </div>
-        <div class="col-lg-5">
-          <div class="row g-3">
-            <div class="col-6">
-              <div class="p-3 rounded-4 shadow-soft bg-gold-grad">
-                <span class="badge bg-light text-dark mb-2">Full‑stack</span>
-                <div class="fw-semibold small">Content Management System</div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="p-3 rounded-4 shadow-soft bg-bronze-grad">
-                <span class="badge bg-light text-dark mb-2">QA Platform</span>
-                <div class="fw-semibold small">Quality Assurance System</div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="p-3 rounded-4 shadow-soft bg-gold-grad">
-                <span class="badge bg-light text-dark mb-2">Mobile/Web App</span>
-                <div class="fw-semibold small">Noble Score App</div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="p-3 rounded-4 shadow-soft bg-bronze-grad">
-                <span class="badge bg-light text-dark mb-2">IoT • NFC</span>
-                <div class="fw-semibold small">Smart Wristbands</div>
-              </div>
-            </div>
-          </div>
+
+        <div class="mode-toggle">
+            <button class="mode-btn active" onclick="switchMode('colorToValue')">
+                <span>🎨</span> Color to Value
+            </button>
+            <button class="mode-btn" onclick="switchMode('valueToColor')">
+                <span>🔢</span> Value to Color
+            </button>
         </div>
-      </div>
+
+        <!-- Color to Value Mode -->
+        <div class="mode-content active" id="colorToValue">
+            <div class="resistor-visual">
+                <div class="resistor-body">
+                    <div class="color-bands">
+                        <div class="band" id="band1" style="background: #8B4513;"></div>
+                        <div class="band" id="band2" style="background: #000;"></div>
+                        <div class="band" id="band3" style="background: #FF0000;"></div>
+                        <div class="band" id="band4" style="background: #FFD700;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="color-selectors">
+                <div class="selector-group">
+                    <div class="selector-label">
+                        <span>1️⃣</span> First Band
+                    </div>
+                    <div class="color-grid" id="selector1"></div>
+                </div>
+
+                <div class="selector-group">
+                    <div class="selector-label">
+                        <span>2️⃣</span> Second Band
+                    </div>
+                    <div class="color-grid" id="selector2"></div>
+                </div>
+
+                <div class="selector-group">
+                    <div class="selector-label">
+                        <span>✖️</span> Multiplier
+                    </div>
+                    <div class="color-grid" id="selector3"></div>
+                </div>
+
+                <div class="selector-group">
+                    <div class="selector-label">
+                        <span>📊</span> Tolerance
+                    </div>
+                    <div class="color-grid" id="selector4"></div>
+                </div>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <div class="result-value" id="resultValue">10 kΩ</div>
+                <div class="result-label">Resistance Value</div>
+                <div class="tolerance-note" id="toleranceNote">Tolerance: ±5%</div>
+            </div>
+
+            <div class="info-box">
+                <h3>ℹ️ How to Read</h3>
+                <p>Select the colors of each band on your resistor from left to right. The first two bands represent digits, the third is the multiplier (number of zeros), and the fourth is the tolerance (accuracy).</p>
+            </div>
+        </div>
+
+        <!-- Value to Color Mode -->
+        <div class="mode-content" id="valueToColor">
+            <div class="value-input-section">
+                <div class="input-group">
+                    <input type="number" id="resistanceValue" placeholder="Enter value" min="1" value="1000">
+                    <select class="unit-select" id="unitSelect">
+                        <option value="1">Ω (Ohms)</option>
+                        <option value="1000" selected>kΩ (Kiloohms)</option>
+                        <option value="1000000">MΩ (Megaohms)</option>
+                    </select>
+                    <button class="calculate-btn" onclick="calculateColors()">
+                        Calculate Colors
+                    </button>
+                </div>
+            </div>
+
+            <div class="resistor-visual">
+                <div class="resistor-body">
+                    <div class="color-bands">
+                        <div class="band" id="bandResult1" style="background: #8B4513;"></div>
+                        <div class="band" id="bandResult2" style="background: #000;"></div>
+                        <div class="band" id="bandResult3" style="background: #FF0000;"></div>
+                        <div class="band" id="bandResult4" style="background: #FFD700;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-box" id="colorResultBox">
+                <div class="result-label" style="margin-bottom: 15px;">Color Code</div>
+                <div class="result-value" id="colorResultText" style="font-size: 1.5em;">Brown • Black • Red • Gold</div>
+            </div>
+
+            <div class="info-box">
+                <h3>ℹ️ How to Use</h3>
+                <p>Enter the resistance value you need and select the unit. The calculator will show you the correct color bands to look for on your resistor. Standard tolerance is ±5% (Gold).</p>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <!-- STATS -->
-  <section id="impact" class="py-4">
-    <div class="container">
-      <div class="row g-3">
-        <div class="col-6 col-md-3">
-          <div class="card text-center shadow-sm">
-            <div class="card-body">
-              <div class="fs-2 fw-bold">11+</div>
-              <div class="text-muted small">Systems Delivered</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="card text-center shadow-sm">
-            <div class="card-body">
-              <div class="fs-2 fw-bold">5k+</div>
-              <div class="text-muted small">Students Served</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="card text-center shadow-sm">
-            <div class="card-body">
-              <div class="fs-2 fw-bold">30+</div>
-              <div class="text-muted small">Automations</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="card text-center shadow-sm">
-            <div class="card-body">
-              <div class="fs-2 fw-bold">$10.5k+</div>
-              <div class="text-muted small">Savings</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <script>
+        const colors = {
+            digit: [
+                { name: 'Black', value: 0, color: '#000000', text: '#fff' },
+                { name: 'Brown', value: 1, color: '#8B4513', text: '#fff' },
+                { name: 'Red', value: 2, color: '#FF0000', text: '#fff' },
+                { name: 'Orange', value: 3, color: '#FF8C00', text: '#fff' },
+                { name: 'Yellow', value: 4, color: '#FFFF00', text: '#000' },
+                { name: 'Green', value: 5, color: '#00FF00', text: '#000' },
+                { name: 'Blue', value: 6, color: '#0000FF', text: '#fff' },
+                { name: 'Violet', value: 7, color: '#8B00FF', text: '#fff' },
+                { name: 'Gray', value: 8, color: '#808080', text: '#fff' },
+                { name: 'White', value: 9, color: '#FFFFFF', text: '#000' }
+            ],
+            multiplier: [
+                { name: 'Black', value: 1, color: '#000000', text: '#fff' },
+                { name: 'Brown', value: 10, color: '#8B4513', text: '#fff' },
+                { name: 'Red', value: 100, color: '#FF0000', text: '#fff' },
+                { name: 'Orange', value: 1000, color: '#FF8C00', text: '#fff' },
+                { name: 'Yellow', value: 10000, color: '#FFFF00', text: '#000' },
+                { name: 'Green', value: 100000, color: '#00FF00', text: '#000' },
+                { name: 'Blue', value: 1000000, color: '#0000FF', text: '#fff' },
+                { name: 'Gold', value: 0.1, color: '#FFD700', text: '#000' },
+                { name: 'Silver', value: 0.01, color: '#C0C0C0', text: '#000' }
+            ],
+            tolerance: [
+                { name: 'Brown', value: 1, color: '#8B4513', text: '#fff' },
+                { name: 'Red', value: 2, color: '#FF0000', text: '#fff' },
+                { name: 'Gold', value: 5, color: '#FFD700', text: '#000' },
+                { name: 'Silver', value: 10, color: '#C0C0C0', text: '#000' }
+            ]
+        };
 
-  <!-- WORK GRID -->
-  <section id="work" class="py-5">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
-        <div>
-          <h2 class="h3 fw-bold mb-1">Key systems & contributions</h2>
-          <div class="text-muted">A snapshot of the platforms and automations I delivered for Noble.</div>
-        </div>
-      </div>
+        let selected = {
+            band1: 1,
+            band2: 0,
+            band3: 2,
+            band4: 2
+        };
 
-      <div class="row g-4">
-        <!-- 1 CMS -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-gold-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Complete Content Management System</h5>
-                <span class="badge badge-gold">Full‑stack</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">Modular CMS tailored to Noble Institute: roles, pages, media, and approvals.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 2 QA -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-bronze-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Quality Assurance Management System</h5>
-                <span class="badge badge-bronze">QA Platform</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">End‑to‑end QA lifecycle: forms, reviewer routing, KPIs, analytics dashboards.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 3 Score App -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-gold-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Noble Score App</h5>
-                <span class="badge badge-gold">Mobile/Web App</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">Mobile‑first portal for students to track scores, attendance, and alerts.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 4 Wristbands -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-bronze-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Programmed Wristbands</h5>
-                <span class="badge badge-bronze">IoT • NFC</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">Marks, attendance, points, and rewards with secure logs.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 5 Attendance -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-gold-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Attendance System — Innovation</h5>
-                <span class="badge badge-gold">System Redesign</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">Reliability upgrades, duplicate‑scan prevention, visualization and audits.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 6 Marketing -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-bronze-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Marking Management System</h5>
-                <span class="badge badge-bronze">Mastresheets</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">Makrs, Ranking, Cards, and automated follow‑ups.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 7 Excel Reports -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-gold-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Excel Statistics Reports (10+)</h5>
-                <span class="badge badge-gold">Analytics</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">Automated multi‑sheet reports for admissions, attendance, and performance.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 8 Google Workspace Deal -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-bronze-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Google Workspace for Education — Free</h5>
-                <span class="badge badge-bronze">Cost Savings</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">Negotiated $5,000+ value and led full rollout with migration.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 9 Security/Batch Scripts -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-gold-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Batch Scripts & Security Tools</h5>
-                <span class="badge badge-gold">DevOps • SecOps</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">Dozens of automated scripts, backups, hardening, and monitoring.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 10 Registration -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-bronze-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Complete Student Registration System</h5>
-                <span class="badge badge-bronze">Admissions</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">Forms → verification → payments → onboarding with dashboards.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 11 SMS/WhatsApp -->
-        <div class="col-sm-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header-gradient bg-gold-grad"></div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Automated SMS & WhatsApp</h5>
-                <span class="badge badge-gold">Automation</span>
-              </div>
-              <p class="card-text mt-2 text-muted small">One‑click messaging flows to guide students through registration.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        function initializeSelectors() {
+            createSelector('selector1', colors.digit, 'band1', 1);
+            createSelector('selector2', colors.digit, 'band2', 0);
+            createSelector('selector3', colors.multiplier, 'band3', 2);
+            createSelector('selector4', colors.tolerance, 'band4', 2);
+        }
 
-  <!-- ABOUT / HOW I WORK -->
-  <section class="py-4 section-soft">
-    <div class="container">
-      <div class="card shadow-sm">
-        <div class="card-body p-4 p-md-5">
-          <h3 class="h5 fw-bold mb-3">How I work</h3>
-          <div class="row g-2 small text-muted">
-            <div class="col-md-6">• Requirements → architecture → rapid prototypes → production.</div>
-            <div class="col-md-6">• Secure by default: backups, monitoring, hardening, audits.</div>
-            <div class="col-md-6">• Automation first: reduce manual steps, shorten response time.</div>
-            <div class="col-md-6">• Data‑driven: reporting and dashboards for every system.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        function createSelector(elementId, colorArray, bandId, defaultIndex) {
+            const container = document.getElementById(elementId);
+            colorArray.forEach((color, index) => {
+                const option = document.createElement('div');
+                option.className = 'color-option' + (index === defaultIndex ? ' selected' : '');
+                option.style.background = color.color;
+                option.style.color = color.text;
+                option.textContent = color.name;
+                option.onclick = () => selectColor(bandId, index, elementId);
+                container.appendChild(option);
+            });
+        }
 
-  <!-- CONTACT -->
-  <section id="contact" class="py-5">
-    <div class="container">
-      <div class="card shadow-sm" style="background: linear-gradient(135deg,#faf7ef, #ffffff);">
-        <div class="card-body p-4 p-md-5">
-          <h2 class="h4 fw-bold">Let’s collaborate</h2>
-          <p class="text-muted">Available for consulting, integrations, and system upgrades at Noble or partner institutes.</p>
-          <div class="row g-3">
-            <div class="col-sm-4"><a class="btn btn-gold w-100" href="mailto:goran.wnis@gmail.com">goran.wnis@gmail.com</a></div>
-            <div class="col-sm-4"><a class="btn btn-outline-secondary w-100" style="border-color: var(--card-border);" href="tel:+9647504623264">+964 750 462 3264</a></div>
-            <div class="col-sm-4"><a class="btn btn-outline-secondary w-100" style="border-color: var(--card-border);" href="https://noble.edu.krd" target="_blank">noble.edu.krd</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        function selectColor(bandId, index, selectorId) {
+            const selector = document.getElementById(selectorId);
+            const options = selector.getElementsByClassName('color-option');
+            Array.from(options).forEach(opt => opt.classList.remove('selected'));
+            options[index].classList.add('selected');
 
-  <footer class="py-4 border-top text-center small" style="border-color: var(--card-border);">
-    © <span id="yr"></span> Goran HamaAli — Noble Institute
-  </footer>
+            selected[bandId] = index;
+            updateBandColor(bandId, index);
+            calculateResistance();
+        }
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // year
-    document.getElementById('yr').textContent = new Date().getFullYear();
-    // theme toggle
-    const btn = document.getElementById('themeBtn');
-    function applyTheme(t){ document.documentElement.setAttribute('data-theme', t); btn.textContent = t==='light' ? 'Dark' : 'Light'; }
-    const saved = localStorage.getItem('theme') || 'light';
-    applyTheme(saved);
-    btn.addEventListener('click', ()=>{ const cur = document.documentElement.getAttribute('data-theme'); const nxt = cur==='light'?'dark':'light'; localStorage.setItem('theme', nxt); applyTheme(nxt); });
-  </script>
+        function updateBandColor(bandId, index) {
+            const band = document.getElementById(bandId);
+            let colorArray;
+            
+            if (bandId === 'band1' || bandId === 'band2') {
+                colorArray = colors.digit;
+            } else if (bandId === 'band3') {
+                colorArray = colors.multiplier;
+            } else {
+                colorArray = colors.tolerance;
+            }
+            
+            band.style.background = colorArray[index].color;
+        }
+
+        function calculateResistance() {
+            const digit1 = colors.digit[selected.band1].value;
+            const digit2 = colors.digit[selected.band2].value;
+            const multiplier = colors.multiplier[selected.band3].value;
+            const tolerance = colors.tolerance[selected.band4].value;
+
+            const resistance = (digit1 * 10 + digit2) * multiplier;
+            
+            let displayValue;
+            if (resistance >= 1000000) {
+                displayValue = (resistance / 1000000).toFixed(2) + ' MΩ';
+            } else if (resistance >= 1000) {
+                displayValue = (resistance / 1000).toFixed(2) + ' kΩ';
+            } else {
+                displayValue = resistance.toFixed(2) + ' Ω';
+            }
+
+            document.getElementById('resultValue').textContent = displayValue;
+            document.getElementById('toleranceNote').textContent = `Tolerance: ±${tolerance}%`;
+        }
+
+        function switchMode(mode) {
+            const buttons = document.querySelectorAll('.mode-btn');
+            const contents = document.querySelectorAll('.mode-content');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            event.target.closest('.mode-btn').classList.add('active');
+            document.getElementById(mode).classList.add('active');
+        }
+
+        function calculateColors() {
+            const value = parseFloat(document.getElementById('resistanceValue').value);
+            const unit = parseFloat(document.getElementById('unitSelect').value);
+            
+            if (!value || value <= 0) {
+                alert('Please enter a valid resistance value');
+                return;
+            }
+
+            const resistance = value * unit;
+            
+            // Find the appropriate representation
+            let significantDigits = resistance;
+            let multiplierPower = 0;
+            
+            while (significantDigits >= 100 && multiplierPower < 6) {
+                significantDigits /= 10;
+                multiplierPower++;
+            }
+            
+            const digit1 = Math.floor(significantDigits / 10);
+            const digit2 = Math.floor(significantDigits % 10);
+            
+            // Find multiplier
+            const multiplierIndex = colors.multiplier.findIndex(m => m.value === Math.pow(10, multiplierPower));
+            
+            // Update visual bands
+            document.getElementById('bandResult1').style.background = colors.digit[digit1].color;
+            document.getElementById('bandResult2').style.background = colors.digit[digit2].color;
+            document.getElementById('bandResult3').style.background = colors.multiplier[multiplierIndex].color;
+            document.getElementById('bandResult4').style.background = colors.tolerance[2].color; // Gold (5%)
+            
+            // Update text result
+            const colorText = `${colors.digit[digit1].name} • ${colors.digit[digit2].name} • ${colors.multiplier[multiplierIndex].name} • Gold`;
+            document.getElementById('colorResultText').textContent = colorText;
+        }
+
+        // Initialize on load
+        initializeSelectors();
+        calculateResistance();
+    </script>
 </body>
 </html>
